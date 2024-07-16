@@ -21,12 +21,14 @@ export class AuthService
      */
     set accessToken(token: string)
     {
+        console.log(token);
         localStorage.setItem('accessToken', token);
     }
 
     get accessToken(): string
     {
         //localStorage.removeItem('accessToken');
+        console.log(localStorage.getItem('accessToken'));
         return localStorage.getItem('accessToken') ?? '';
     }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
 import { contacts as contactsData, countries as countriesData, tags as tagsData } from 'app/mock-api/apps/contacts/data';
 import { assign, cloneDeep } from 'lodash-es';
-import { from, map } from 'rxjs';
+import { first, from, map } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class ContactsMockApi
@@ -104,7 +104,42 @@ export class ContactsMockApi
                 const newContact = {
                     id          : FuseMockApiUtils.guid(),
                     avatar      : null,
-                    name        : 'New Contact',
+                    name        : {
+                        first: '', 
+                        last: '',
+                    },
+                    maritalStatus        : {
+                        single: true, 
+                        married: false,
+                    },
+                    gender        : {
+                        male: true, 
+                        female: false,
+                    },
+                    ageGroup: {
+                        '0-7' : true,
+                        '8-12' : true,
+                        '13-19' : true,
+                        '20-29' : true,
+                        '30-39' : true,
+                        '40-49' : true,
+                        '50-59' : true,
+                        '60+' : true
+                    },
+                    date: null,
+                    invitedBy: '',
+                    first_time_visitor : true,
+                    returning_visitor: true,
+                    new_to_area: true,
+                    visitation        : {
+                        like_to_visit: true,
+                        day_of_visit: '', 
+                        time_of_visit: '',
+                    },
+                    communication_tool : {
+                        telephone_call: true,
+                        sms_whatsapp: true,                   
+                    },
                     emails      : [],
                     phoneNumbers: [],
                     job         : {

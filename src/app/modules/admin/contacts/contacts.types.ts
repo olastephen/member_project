@@ -1,37 +1,31 @@
-export interface Contact
-{
+export interface Contact {
     id: string;
-    avatar?: string | null;
-    background?: string | null;
     name: string;
-    emails?: {
-        email: string;
-        label: string;
-    }[];
-    phoneNumbers?: {
-        country: string;
-        phoneNumber: string;
-        label: string;
-    }[];
-    title?: string;
-    company?: string;
-    birthday?: string | null;
-    address?: string | null;
-    notes?: string | null;
+    marital_status: string;
+    gender: string;
+    age_group: string;
+    date: string;
+    invited_by: string;
+    first_time_visitor: boolean;
+    returning_visitor: boolean;
+    new_to_area: boolean;
+    visitation: {
+        day_of_visit: string;
+        time_of_visit: string;
+    };
+    communication_tool: {
+        telephone_call: boolean;
+        sms_whatsapp: boolean;
+    };
+    emails: { email: string; label?: string }[];
+    phoneNumbers: { phoneNumber: string; label?: string; country?: string }[];
+    job: {
+        title: string;
+        company: string;
+    };
+    birthday: string;
+    address: string;
+    notes: string;
     tags: string[];
-}
-
-export interface Country
-{
-    id: string;
-    iso: string;
-    name: string;
-    code: string;
-    flagImagePos: string;
-}
-
-export interface Tag
-{
-    id?: string;
-    title?: string;
+    avatar: string;
 }

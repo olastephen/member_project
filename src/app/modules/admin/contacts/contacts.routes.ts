@@ -12,29 +12,26 @@ import { catchError, throwError } from 'rxjs';
  * @param route
  * @param state
  */
-const contactResolver = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
-{
+const contactResolver = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
     const contactsService = inject(ContactsService);
     const router = inject(Router);
 
-    return contactsService.getContactById(route.paramMap.get('id'))
-        .pipe(
-            // Error here means the requested contact is not available
-            catchError((error) =>
-            {
-                // Log the error
-                console.error(error);
+    return contactsService.getContactById(route.paramMap.get('id')).pipe(
+        // Error here means the requested contact is not available
+        catchError((error) => {
+            // Log the error
+            console.error(error);
 
-                // Get the parent url
-                const parentUrl = state.url.split('/').slice(0, -1).join('/');
+            // Get the parent url
+            const parentUrl = state.url.split('/').slice(0, -1).join('/');
 
-                // Navigate to there
-                router.navigateByUrl(parentUrl);
+            // Navigate to there
+            router.navigateByUrl(parentUrl);
 
-                // Throw an error
-                return throwError(error);
-            }),
-        );
+            // Throw an error
+            return throwError(error);
+        }),
+    );
 };
 
 /**
@@ -49,27 +46,24 @@ const canDeactivateContactsDetails = (
     component: ContactsDetailsComponent,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
-    nextState: RouterStateSnapshot) =>
-{
+    nextState: RouterStateSnapshot
+) => {
     // Get the next route
     let nextRoute: ActivatedRouteSnapshot = nextState.root;
-    while ( nextRoute.firstChild )
-    {
+    while (nextRoute.firstChild) {
         nextRoute = nextRoute.firstChild;
     }
 
     // If the next state doesn't contain '/contacts'
     // it means we are navigating away from the
     // contacts app
-    if ( !nextState.url.includes('/contacts') )
-    {
+    if (!nextState.url.includes('/contacts')) {
         // Let it navigate
         return true;
     }
 
     // If we are navigating to another contact...
-    if ( nextRoute.paramMap.get('id') )
-    {
+    if (nextRoute.paramMap.get('id')) {
         // Just navigate
         return true;
     }
@@ -80,26 +74,21 @@ const canDeactivateContactsDetails = (
 
 export default [
     {
-        path     : '',
+        path: '',
         component: ContactsComponent,
-        resolve  : {
-            tags: () => inject(ContactsService).getTags(),
-        },
-        children : [
+        children: [
             {
-                path     : '',
+                path: '',
                 component: ContactsListComponent,
-                resolve  : {
-                    contacts : () => inject(ContactsService).getContacts(),
-                    countries: () => inject(ContactsService).getCountries(),
+                resolve: {
+                    contacts: () => inject(ContactsService).getContacts(),
                 },
-                children : [
+                children: [
                     {
-                        path         : ':id',
-                        component    : ContactsDetailsComponent,
-                        resolve      : {
-                            contact  : contactResolver,
-                            countries: () => inject(ContactsService).getCountries(),
+                        path: ':id',
+                        component: ContactsDetailsComponent,
+                        resolve: {
+                            contact: contactResolver,
                         },
                         canDeactivate: [canDeactivateContactsDetails],
                     },

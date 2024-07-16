@@ -9,7 +9,7 @@ import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { ContactsService } from 'app/modules/admin/contacts/contacts.service';
-import { Contact, Country } from 'app/modules/admin/contacts/contacts.types';
+import { Contact } from 'app/modules/admin/contacts/contacts.types';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
@@ -28,7 +28,6 @@ export class ContactsListComponent implements OnInit, OnDestroy
 
     contactsCount: number = 0;
     contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
-    countries: Country[];
     drawerMode: 'side' | 'over';
     searchInputControl: UntypedFormControl = new UntypedFormControl();
     selectedContact: Contact;
@@ -77,18 +76,6 @@ export class ContactsListComponent implements OnInit, OnDestroy
             {
                 // Update the selected contact
                 this.selectedContact = contact;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
-        // Get the countries
-        this._contactsService.countries$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((countries: Country[]) =>
-            {
-                // Update the countries
-                this.countries = countries;
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
