@@ -2,6 +2,16 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli)
 
+## installation
+Run the installation command
+Open a console/terminal window and navigate into your workspace directory. You must be at the same folder with the package.json file in order to run the commands.
+
+To complete the installation, enter the following command:
+
+`npm install`
+
+This command will take some time and install all the required libraries into the node_modules directory in order for you to start developing.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
